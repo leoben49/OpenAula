@@ -153,6 +153,9 @@
     background: var(--accent-soft);
     border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   }
+  .intro .btn {
+    flex: none;
+  }
   .intro p {
     margin: 4px 0 0;
     font-size: 13px;

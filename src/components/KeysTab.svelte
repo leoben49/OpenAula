@@ -8,6 +8,7 @@
   import Card from './ui/Card.svelte';
   import Segmented from './ui/Segmented.svelte';
   import KeyboardView from './KeyboardView.svelte';
+  import { keyName } from '../lib/legends';
 
   let layer = $state<Layer>('top');
   let selected = $state<number | null>(null);
@@ -50,9 +51,9 @@
     capturing = false;
   }
 
-  const labelFor = (k: Key) => {
+  const remapFor = (k: Key) => {
     const a = map[k.index];
-    return a ? shortLabel(a, kb.settings.macros) : k.label;
+    return a ? shortLabel(a, kb.settings.macros) : undefined;
   };
 </script>
 
@@ -70,12 +71,12 @@
         value={layer}
         onchange={(v) => (layer = v)} />
     {/snippet}
-    <KeyboardView {labelFor} changed={(k) => !!map[k.index]} {selected} onkey={(k) => (selected = k.index === FN_INDEX ? null : k.index)} />
+    <KeyboardView {remapFor} {selected} onkey={(k) => (selected = k.index === FN_INDEX ? null : k.index)} />
     <p class="hint muted">{layer === 'fn' ? 'Fn layer: what a key does while Fn is held.' : 'The Fn key itself can’t be remapped.'}</p>
   </Card>
 
   {#if key}
-    <Card title="{layer === 'fn' ? 'Fn + ' : ''}{key.label}" subtitle="Currently: {describe(action, kb.settings.macros)}">
+    <Card title="{layer === 'fn' ? 'Fn + ' : ''}{keyName(key)}" subtitle="Currently: {describe(action, kb.settings.macros)}">
       <div class="editor">
         <Segmented label="Action type" options={[...KINDS]} value={action.kind} onchange={setKind} />
 

@@ -3,10 +3,10 @@ import { MODIFIERS, type Action, type Macro } from './protocol/payloads';
 
 /** Consumer-page usages offered for remapping (standard HID values). */
 export const MEDIA: { usage: number; label: string; short: string }[] = [
-  { usage: 0x00cd, label: 'Play / Pause', short: '⏯' },
-  { usage: 0x00b5, label: 'Next track', short: '⏭' },
-  { usage: 0x00b6, label: 'Previous track', short: '⏮' },
-  { usage: 0x00b7, label: 'Stop', short: '⏹' },
+  { usage: 0x00cd, label: 'Play / Pause', short: 'Play' },
+  { usage: 0x00b5, label: 'Next track', short: 'Next' },
+  { usage: 0x00b6, label: 'Previous track', short: 'Prev' },
+  { usage: 0x00b7, label: 'Stop', short: 'Stop' },
   { usage: 0x00e9, label: 'Volume up', short: 'Vol+' },
   { usage: 0x00ea, label: 'Volume down', short: 'Vol−' },
   { usage: 0x00e2, label: 'Mute', short: 'Mute' },
