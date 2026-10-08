@@ -50,7 +50,10 @@
   onMount(() => {
     void kb.restore();
     // Dev server only: lets the console (and Claude's browser checks) poke at state.
-    if (import.meta.env.DEV) (window as unknown as { kb: typeof kb }).kb = kb;
+    if (import.meta.env.DEV) {
+      (window as unknown as { kb: typeof kb }).kb = kb;
+      void import('./lib/dev/tasks').then((t) => t.startTasks());
+    }
   });
 </script>
 

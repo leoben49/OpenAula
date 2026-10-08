@@ -208,6 +208,17 @@ export class Wired implements Link {
     return ack[0] === bytes[0] ? ack : ack.subarray(1);
   }
 
+  /** Reads the next feature report (used after commands that return data). */
+  async readFeature(): Promise<Uint8Array> {
+    const r = await this.control.receiveFeatureReport(0);
+    return new Uint8Array(r.buffer, r.byteOffset, r.byteLength).slice();
+  }
+
+  /** Raw transaction for protocol exploration (dev tasks only). */
+  rawTransaction(target: number, sub: number, data: Uint8Array, begin = 0x18) {
+    return this.transaction(target, sub, data, begin);
+  }
+
   /** begin, target header, data packets, end. Serialised so transactions never interleave. */
   private transaction(target: number, sub: number, data: Uint8Array, begin = 0x18) {
     const run = async () => {

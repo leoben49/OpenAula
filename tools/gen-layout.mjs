@@ -15,6 +15,19 @@ const rows = [...xml.matchAll(/<key [^>]*\/>/g)].map(([s]) => {
   const label = LABELS[raw] ?? raw;
   return [+attr(s, 'key_index'), parseInt(attr(s, 'code'), 16), +attr(s, 'rect_left') - 90, +attr(s, 'rect_top') - 28, +attr(s, 'rect_width'), label];
 });
+// The driver's file describes AULA's own edition (Alt + Fn right of the space
+// bar). The EPOMAKER x AULA edition has Fn + Ctrl there, wired to slots 96 and
+// 98 (found by remapping slots 95–98 on a real board; 95 and 97 are unwired).
+const alt = rows.findIndex((r) => r[0] === 95);
+const fn = rows.findIndex((r) => r[0] === 96);
+if (alt !== -1 && fn !== -1) {
+  const [, , altX, y, w] = rows[alt];
+  const fnX = rows[fn][2];
+  rows[fn] = [96, 0xaf, altX, y, w, 'Fn'];
+  rows[alt] = [98, 0xe4, fnX, y, w, 'Ctrl'];
+}
+rows.sort((a, b) => a[3] - b[3] || a[2] - b[2]);
+
 const fmt = ([i, u, x, y, w, l]) => `  [${i}, 0x${u.toString(16).padStart(2, '0')}, ${x}, ${y}, ${w}, ${JSON.stringify(l)}],`;
 
 writeFileSync(

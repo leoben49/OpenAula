@@ -147,6 +147,30 @@ Payload (concatenated, zero-padded to a 4096 multiple):
 
 Verified by rebuilding frame 0 of a 17-frame upload into a PNG (`captures/frame0.png`).
 
+## Firmware
+
+AULA publishes `F75MAX firmware.exe` on aulastar.com (the AULA trademark
+owner's site; Epomaker lists no firmware). Findings from inspecting it,
+without running it:
+
+- Unsigned; a rebranded Sonix "USB MCU ISP Tool" (file version 2.1.2.6) with an
+  embedded zip holding `Settings/FWFiles/SN32F290.hex` and `UISettings.ini`.
+- Chip: Sonix SN32F290 (ARM). Updates the keyboard over cable only, not the dongle.
+- Version **1.09**: `CurVersion=0x0109` in the ini, and bytes `01 09` at
+  offset 0x0C of the image. The dongle's `02` device-info reply contains
+  `08 01` (bytes 11–12), most likely the installed version, 0x0108.
+- No changelog anywhere.
+- The firmware is plain (not encrypted). Its default keymap at 0x11BE0 is
+  column-major, 8 bytes per column; the bottom row holds Right Alt, Fn and
+  Right Ctrl in consecutive columns.
+
+### Fn / Ctrl variants
+
+AULA's own F75 Max has Alt + Fn right of the space bar (slots 95, 96 in the
+driver's layout). The EPOMAKER x AULA edition has Fn + Ctrl, wired to slots
+**96 and 98** (found by remapping slots 95–98 to letters on a real board; 95
+and 97 are unwired). `tools/gen-layout.mjs` applies this.
+
 ## Open questions
 
 - Firmware version field.
