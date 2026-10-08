@@ -3,6 +3,8 @@
 A lightweight, open-source replacement for the EPOMAKER x AULA F75 Max keyboard
 software. It runs in your browser, works offline, and installs nothing.
 
+**[Open OpenAula →](https://leoben49.github.io/OpenAula/)**
+
 ## Why
 
 The official driver is a Windows-only program that wants to start with Windows
@@ -29,10 +31,15 @@ close the page. Nothing runs in the background.
 
 ## Using it
 
-Open the page in Chrome, Edge, Brave or another Chromium browser on desktop
-(Firefox and Safari don't support WebHID), plug in the 2.4 GHz dongle or the
-USB cable, and click **Connect**. Close the AULA software first so the two don't
-talk to the keyboard at the same time.
+1. Open **[leoben49.github.io/OpenAula](https://leoben49.github.io/OpenAula/)** in
+   Chrome, Edge, Brave or another Chromium browser on desktop. Firefox and
+   Safari don't support WebHID.
+2. Plug in the 2.4 GHz dongle or the USB cable and click **Connect**. Close the
+   AULA software first so the two don't talk to the keyboard at the same time.
+
+To use it fully offline, download `openaula.html` from the
+[latest release](https://github.com/leoben49/OpenAula/releases/latest) and open
+it from disk. It's the same page in a single self-contained file.
 
 **Connections:**
 
@@ -83,6 +90,10 @@ borrows Apple's vendor ID) exactly, and nothing else.
 | Device | Status |
 |---|---|
 | EPOMAKER x AULA F75 Max (cable `0C45:800A`, dongle `05AC:024F`) | Tested |
+
+The EPOMAKER edition has **Fn + Ctrl** right of the space bar; AULA's own F75
+Max has Alt + Fn there. OpenAula draws the EPOMAKER layout, but the protocol is
+the same, so AULA's edition should work too (untested).
 
 ## Development
 
