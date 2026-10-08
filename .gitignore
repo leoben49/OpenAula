@@ -1,0 +1,6 @@
+node_modules
+/dist
+# Dev-only logs and raw USB captures (contain keystrokes) never go in the repo
+/.devlog
+/captures
+*.bin
